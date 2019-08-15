@@ -203,7 +203,9 @@ main( int argc, char* argv[] ) {
 
   // print them all out
   print_all_students();
+  printf("\n");
   print_csc();
+  printf("\n");
 
   // print the name of the student with the lowest gpa
   struct student_info *s = lowest_gpa();
