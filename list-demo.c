@@ -1,6 +1,7 @@
 /*
   Program: list-demo.c
   Author: Douglas Harms
+  Modified By:  <insert student name here>
   
   Description: This program demonstates the use of the list library in the
   pintos code.  It creates several lists of student information.
@@ -24,7 +25,7 @@ struct student_info {
 };
 
 struct list all_students;
-struct list csc_majors;
+struct list majors;
 
 /*
   return true iff the name of a is less than the name of b.  Used to
@@ -69,6 +70,11 @@ read_students( char* filename )
   }
 
   while( fgets( line, sizeof(line), file ) ) {
+    
+    // if the line is empty (or only contains the \n), we're done
+    if( strlen(line) <= 1 )
+      break;
+     
     // allocate memory for the student
     student = malloc( sizeof( struct student_info ) );
 
@@ -96,7 +102,7 @@ read_students( char* filename )
 
     // add the student to the end of the majors list if they're a CSC major
     if( strcmp( student->major, "csc" ) == 0 )
-      list_push_back( &csc_majors, &student->elem_major );
+      list_push_back( &majors, &student->elem_major );
   }
 
   // close the file and return
@@ -137,11 +143,11 @@ void
 print_csc(void) {
   struct list_elem *e;
 
-  if( list_empty( &csc_majors ) )
+  if( list_empty( &majors ) )
     printf("There are no CSC majors :-(\n");
   else {
     printf("CSC majors:\n");
-    for(e=list_begin(&csc_majors);e!=list_end(&csc_majors);e=list_next(e)) {
+    for(e=list_begin(&majors);e!=list_end(&majors);e=list_next(e)) {
       struct student_info *s = list_entry(e,struct student_info,elem_major);
       printf("%s %s\n",s->first_name, s->last_name );
     }
@@ -169,15 +175,27 @@ lowest_gpa(void) {
   return s;
 }
 
-void
-main(void) {
+/*
+  main program
+*/
+
+int
+main( int argc, char* argv[] ) {
 
   // initialize things
   list_init( &all_students );
-  list_init( &csc_majors );
+  list_init( &majors );
 
+  // check the command line arguments.  The command line must specify
+  // the name of the file.
+  if( argc != 2 ) {
+    printf("usage:\n");
+    printf("  ./list-demo <student-file-name>\n");
+    return 1;  // error
+  }
+  
   // read in info
-  read_students( "students.txt" );
+  read_students( argv[1] );
 
   // print them all out
   print_all_students();
@@ -190,4 +208,6 @@ main(void) {
   
   // free up all memory
   destroy_students();
+
+  return 0;  // success
 }
