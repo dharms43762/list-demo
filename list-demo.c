@@ -123,9 +123,13 @@ destroy_students (void) {
   }
 }
 
+/*
+  print information about all students
+*/
 void
 print_all_students (void) {
 
+  printf("All students are:\n");
   struct list_elem *e;
   for( e=list_begin(&all_students);e!=list_end(&all_students);e=list_next(e) ){
     struct student_info *s = list_entry(e,struct student_info, elem_all);
@@ -203,7 +207,7 @@ main( int argc, char* argv[] ) {
 
   // print the name of the student with the lowest gpa
   struct student_info *s = lowest_gpa();
-  printf("%s %s has the lowest gpa, which is %f\n",
+  printf("%s %s has the lowest gpa of all students, which is %f\n",
 	 s->first_name,s->last_name,s->gpa);
   
   // free up all memory
