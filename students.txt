@@ -1,0 +1,5 @@
+12343,harms,douglas,csc,berque,3.99
+76323,smith,paula,mus,jones,4.00
+87264,jones,sally,csc,soster,3.78
+73622,harms,rebecca,ita,townsend,3.85
+75563,harms,isaac,psy,moore,3.52
