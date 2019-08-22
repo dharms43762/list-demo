@@ -6,3 +6,4 @@
 72351,smith,joshua,bio,dudle,3.25
 29802,smith,sally,bio,dudle,3.35
 92063,baker,amy,csc,harms,3.87
+55243,jones,meredith,bio,stark,3.15
